@@ -1,9 +1,7 @@
 import React from 'react'
 import { Editor } from '@tinymce/tinymce-react'
-// for using we have to read in documentation about editor
 import { Controller } from 'react-hook-form'
 
-// control prop will pass on the control to whoever component calls it
 export default function RTE({ name, control, label, defaultValue = '' }) {
   return (
     <div className="w-full">
@@ -11,9 +9,7 @@ export default function RTE({ name, control, label, defaultValue = '' }) {
 
       <Controller
         name={name || 'content'}
-        control={control} // will pass full control
-        // ************ render is the most important part
-        // on change we will render editor
+        control={control} 
         render={({ field: { onChange } }) => (
           <Editor
             apiKey="ssyye8agbkuj2ge3khw3v2ickqhk5stq0s24ecy9b1p4jf3t"
