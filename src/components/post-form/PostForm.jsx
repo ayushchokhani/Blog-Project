@@ -12,10 +12,9 @@ function PostForm({ post }) {
 
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
-      // we can pass object in useForm
+      
       defaultValues: {
-        // user may come to edit previous values or create new value
-        // if user has come for editing we have to provide default values to user
+        
         title: post?.title || '',
         slug: post?.$id || '',
         content: post?.content || '',
@@ -23,9 +22,6 @@ function PostForm({ post }) {
       },
     })
 
-  
-
-  // there will be 2 cases of submitting form: 1st time entry or updating prev post
 
   const submit = async (data) => {
     if (post) {
@@ -33,13 +29,12 @@ function PostForm({ post }) {
         ? await appwriteService.uploadFile(data.image[0])
         : null
 
-      // now deleting the previous image
+      
       if (file) {
         await appwriteService.deleteFile(post.featuredImage)
       }
 
-      // now for updating post we need slug as its id (check config.js in appwrite)
-      // post.$id is the slug
+      
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
@@ -50,17 +45,16 @@ function PostForm({ post }) {
       }
     }
 
-    // if no post present
+    
     else {
       const file = await appwriteService.uploadFile(data.image[0])
 
       if (file) {
-        // console.log(file);
+        
         const fileId = file.$id
         data.featuredImage = fileId
         const dbPost = await appwriteService.createPost({
           userId: userData.$id,
-          // spreading out data because we need userId too
           ...data,
         })
 
@@ -71,9 +65,6 @@ function PostForm({ post }) {
     }
   }
 
-  // we have 2 input title, slug
-  // we will watch title, if user gives space then '-' will be provided in slug
-
   const slugTransform = useCallback((value) => {
     if (value && typeof value === 'string') {
       return value
@@ -83,7 +74,7 @@ function PostForm({ post }) {
         .replace(/\s/g, '-')
     }
 
-    return '' // if upper if is not present then returning empty string
+    return '' 
   }, [])
 
   useEffect(() => {
@@ -93,14 +84,12 @@ function PostForm({ post }) {
       }
     })
 
-    // below done to optimize
     return () => {
       subscription.unsubscribe
     }
   }, [watch, slugTransform, setValue])
 
   return (
-    // left side taking 2/3rd part right taking 1/3rd
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
         <Input
