@@ -13,7 +13,7 @@ function Signup() {
   const { register, handleSubmit } = useForm()
 
   const create = async (data) => {
-    setError('') // emptying out errors
+    setError('') 
     try {
       const userData = await authService.createAccount(data)
       if (userData) {
@@ -64,8 +64,7 @@ function Signup() {
                 required: true,
               })}
             />
-
-            {/* copying email input from login */}
+            
             <Input
               label="Email: "
               placeholder="Enter your email"
