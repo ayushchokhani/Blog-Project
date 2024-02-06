@@ -1,0 +1,58 @@
+import React from 'react'
+import { Editor } from '@tinymce/tinymce-react'
+// for using we have to read in documentation about editor
+import { Controller } from 'react-hook-form'
+
+// control prop will pass on the control to whoever component calls it
+export default function RTE({ name, control, label, defaultValue = '' }) {
+  return (
+    <div className="w-full">
+      {label && <label className="inline-block mb-1 pl-1 ">{label}</label>}
+
+      <Controller
+        name={name || 'content'}
+        control={control} // will pass full control
+        // ************ render is the most important part
+        // on change we will render editor
+        render={({ field: { onChange } }) => (
+          <Editor
+            apiKey="ssyye8agbkuj2ge3khw3v2ickqhk5stq0s24ecy9b1p4jf3t"
+            initialValue={defaultValue}
+            init={{
+              initialValue: defaultValue,
+              height: 500,
+              menubar: true,
+              plugins: [
+                'image',
+                'advlist',
+                'autolink',
+                'lists',
+                'link',
+                'image',
+                'charmap',
+                'preview',
+                'anchor',
+                'searchreplace',
+                'visualblocks',
+                'code',
+                'fullscreen',
+                'insertdatetime',
+                'media',
+                'table',
+                'code',
+                'help',
+                'wordcount',
+                'anchor',
+              ],
+              toolbar:
+                'undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help',
+              content_style:
+                'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+            }}
+            onEditorChange={onChange}
+          />
+        )}
+      />
+    </div>
+  )
+}
