@@ -1,19 +1,16 @@
 import React, {useId} from 'react'
 
-// using arrow function so make understanding of things easier
-// wrapping everything in forwardRef hook
 const Input = React.forwardRef( function Input({
     label,
-    type = "text", // password type etc just giving a default value
+    type = "text", 
     className = "",
     ...props
-}, ref) { // passing of reference 
+}, ref) { 
 
     const id = useId()
 
     return (
         <div className='w-full'>
-            {/* if label is passed then label will be displayed*/}
 
             {label && <label 
                 className='inline-block mb-1 pl-1' 
@@ -28,9 +25,9 @@ const Input = React.forwardRef( function Input({
             className={` ${className} px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50
             duration-200 border border-gray-200 w-full `}
 
-            ref={ref} // most important ---> taking reference 
+            ref={ref} 
             {...props}
-            id = {id} // same unique id for label and input
+            id = {id} 
             />
         </div>
     )
