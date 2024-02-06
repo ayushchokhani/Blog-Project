@@ -6,7 +6,7 @@ export class Service {
   databases
   storage
 
-  //account should be made when constructor is called
+  
   constructor() {
     this.client
     .setEndpoint(conf.appwriteUrl)
@@ -20,10 +20,9 @@ export class Service {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        // we can also do ID.unique() instead of slug
         slug,
         {
-          // we are saving these information, if we want we can other attributes as well
+          
           title,
           content,
           featuredImage,
@@ -36,7 +35,7 @@ export class Service {
     }
   }
 
-  // taking slug because we want to uniquely identify our document by its document_id
+  
   async updatePost(slug, { title, content, featuredImage, status }) {
     try {
       return await this.databases.updateDocument(
@@ -62,7 +61,7 @@ export class Service {
         conf.appwriteCollectionId,
         slug
       )
-      //we are returning true if database deleted and we will handle it in frontend
+      
       return true
     } catch (error) {
       console.log('Appwrite service :: deletePost :: error', error)
@@ -79,24 +78,19 @@ export class Service {
       )
     } catch (error) {
       console.log('Appwrite service :: getPost :: error', error)
-      //returning false if we didn't get any post
+      
       return false
     }
   }
 
-  //using query to get all posts whose status is active
-
-  // queries here is just a variable
+  
   async getPosts(queries = [Query.equal('status', 'active')]) {
     try {
       return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         queries
-        //if we have not written in parameters then we would have to write ot here in this manner
-        // [
-        //     Query.equal('status', 'active')
-        // ]
+  
       )
     } catch (error) {
       console.log('Appwrite service :: getPosts :: error', error)
@@ -104,8 +98,7 @@ export class Service {
     }
   }
 
-  // file uploading service
-  // attach this service into different file
+  
 
   async uploadFile(file) {
     try {
@@ -129,7 +122,7 @@ export class Service {
     }
   }
 
-  //we could have put this in async too but its response is very fast, see documentation
+  
   getFilePreview(fileId) {
     return this.storage.getFilePreview(conf.appwriteBucketId, fileId)
   }
