@@ -13,14 +13,14 @@ function App() {
   const dispatch = useDispatch()
   const userData = useSelector((state) => state.auth.userData)
 
-  // in useeffect checking if user is logged in or not
+  
   useEffect(() => {
     authService.getCurrentUser()
-    // .then when user is successfully found
+    
     .then((userData) => {
-      // if user data is found 
+      
       if(userData) {
-        dispatch(login({userData})) // passing userData as object
+        dispatch(login({userData})) 
       } else {
         dispatch(logout())
       }
@@ -28,10 +28,7 @@ function App() {
     .finally(() => setLoading(false))
   }, [])
 
-  // console.log(process.env.REACT_APP_APPWRITE_UR) --> for create react app 
-  // console.log(import.meta.env.VITE_APPWRITE_URL)
-
-  // doing conditional rendering 
+  
   return !loading ? (
     <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
       <div className='w-full block'>
