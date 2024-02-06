@@ -7,9 +7,9 @@ function LogoutBtn() {
 
     const dispatch = useDispatch()
     const logoutHandler = () => {
-      // as we delete our session from appwrite whose code is in authService
+     
         authService.logout().then(() => {
-          // updating the important information in store
+          
             dispatch(logout())
         })
     }
